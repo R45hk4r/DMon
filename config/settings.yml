@@ -1,0 +1,16 @@
+plugins:
+  dmon_enabled:
+    default: true
+    client: true
+  dmon_server_hash:
+    default: ''
+    client: true
+  dmon_server_url:
+    default: 'https://scrap.discourse-monitoring.com/'
+    client: true
+  dmon_server_https:
+    default: true
+    client: true
+  dmon_discourse_username:
+    default: 'system'
+    client: false

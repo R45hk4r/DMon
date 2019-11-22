@@ -1,0 +1,7 @@
+en:
+  site_settings:
+    dmon_enabled: "Enable DMon plugin"
+    dmon_server_hash: "Hash to connect to discourse-monitoring.com"
+    dmon_server_url: "DMon server url"
+    dmon_server_https: "Activate https"
+    dmon_discourse_username: "discourse username"
