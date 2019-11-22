@@ -1,8 +1,8 @@
-# name: discourse-dmon
+# name: DMon
 # about:
-# version: 0.2
-# authors: Discourse-monitoring
-# url: https://github.com/imMMX
+# version: 0.1
+# authors: Discourse-monitoring.com
+# url: https://github.com/R45hk4r/DMon
 
 
 gem 'json', '2.2.0'
@@ -28,7 +28,7 @@ after_initialize do
   require_dependency File.expand_path('../app/jobs/regular/update_dmon_event.rb', __FILE__)
   require_dependency File.expand_path('../app/jobs/regular/update_dmon_stats.rb', __FILE__)
   require_dependency 'discourse_event'
-  
+
 
   require_dependency "application_controller"
   class DiscourseDmon::ActionsController < ::ApplicationController
@@ -43,13 +43,13 @@ after_initialize do
 
 
 
-  DiscourseDmon::Engine.routes.draw do
-    get "/list" => "actions#list"
-  end
-
-  Discourse::Application.routes.append do
-    mount ::DiscourseDmon::Engine, at: "/discourse-dmon"
-  end
+  # DiscourseDmon::Engine.routes.draw do
+  #   get "/list" => "actions#list"
+  # end
+  #
+  # Discourse::Application.routes.append do
+  #   mount ::DiscourseDmon::Engine, at: "/discourse-dmon"
+  # end
 
   [:user_created, :user_updated, :topic_created, :topic_edited, :topic_destroyed, :topic_recovered, :post_created, :post_edited, :post_destroyed, :post_recovered].each do |discourse_event|
     DiscourseEvent.on(discourse_event) do |event|
