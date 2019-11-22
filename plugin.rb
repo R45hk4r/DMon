@@ -28,6 +28,7 @@ after_initialize do
   require_dependency File.expand_path('../app/jobs/regular/update_dmon_event.rb', __FILE__)
   require_dependency File.expand_path('../app/jobs/regular/update_dmon_stats.rb', __FILE__)
   require_dependency 'discourse_event'
+  
 
   require_dependency "application_controller"
   class DiscourseDmon::ActionsController < ::ApplicationController

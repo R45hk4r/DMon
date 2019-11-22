@@ -1,5 +1,6 @@
 require 'net/http'
 require 'uri'
+require_dependency 'discourse'
 module DiscourseDmon
   class DmonHelper
 
