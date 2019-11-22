@@ -23,6 +23,7 @@ module DiscourseDmon
 
       request['X-Discourse-Event'] = datas.to_s
       request['X-Discourse-Hash'] = SiteSetting.dmon_server_hash.to_s
+      request['X-Discourse-Url'] = "#{Discourse::base_uri}"
 
       response = https.request(request)
       puts response
@@ -40,6 +41,7 @@ module DiscourseDmon
 
       request['X-Discourse-Event'] = "update_stats"
       request['X-Discourse-Hash'] = SiteSetting.dmon_server_hash.to_s
+      request['X-Discourse-Url'] = "#{Discourse::base_uri}"
 
       response = https.request(request)
       puts response
