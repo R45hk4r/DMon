@@ -1,6 +1,8 @@
-# discourse-dmon
+# Discourse DMon
 
+A plugin for [Discourse](https://discourse.org/) to send some stat across internet.
 
+See: 
 
 ## Installation
 

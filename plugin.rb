@@ -1,6 +1,6 @@
 # name: DMon
 # about:
-# version: 0.1
+# version: 0.1.1
 # authors: Discourse-monitoring.com
 # url: https://github.com/R45hk4r/DMon
 
@@ -14,9 +14,6 @@ PLUGIN_NAME ||= "discourse-dmon".freeze
 
 after_initialize do
   load File.expand_path('../lib/discourse_dmon/dmon_helper.rb', __FILE__)
-
-  # see lib/plugin/instance.rb for the methods available in this context
-
 
   module ::DiscourseDmon
     class Engine < ::Rails::Engine
@@ -42,16 +39,7 @@ after_initialize do
   end
 
 
-
-  # DiscourseDmon::Engine.routes.draw do
-  #   get "/list" => "actions#list"
-  # end
-  #
-  # Discourse::Application.routes.append do
-  #   mount ::DiscourseDmon::Engine, at: "/discourse-dmon"
-  # end
-
-  [:user_created, :user_updated, :topic_created, :topic_edited, :topic_destroyed, :topic_recovered, :post_created, :post_edited, :post_destroyed, :post_recovered].each do |discourse_event|
+  [:topic_created, :topic_destroyed, :topic_recovered, :topic_edited, :post_created, :post_edited, :post_destroyed, :post_recovered, :user_created, :user_approved, :user_updated, :user_logged_out, :user_logged_in, :user_destroyed, :category_created, :category_updated, :category_destroyed, :group_created, :group_updated, :group_destroyed, :tag_created, :tag_updated, :tag_destroyed, :notification_created, :reviewable_created, :reviewable_transitioned_to].each do |discourse_event|
     DiscourseEvent.on(discourse_event) do |event|
       if SiteSetting.dmon_enabled?
         Jobs.enqueue_in(0,

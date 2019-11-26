@@ -77,17 +77,48 @@ module Jobs
         end
         hjson["forum_stats"] = liste
 
+        # Total user uploads
+        res  = DB.query('select count(*) from user_uploads;')
+        liste = []
+        res.each do |row|
+          liste << ["#{row.count}"]
+        end
+        hjson["total_user_uploads"] = liste
+
+        # top10 biggest uploaders
+        res  = DB.query('SELECT users.username, count(user_uploads.id) FROM user_uploads, users WHERE user_uploads.user_id = users.id GROUP BY users.username ORDER BY count(user_uploads.id) DESC LIMIT 10;')
+        liste = []
+        res.each do |row|
+          liste << ["#{row.username}", "#{row.count}".to_i]
+        end
+        hjson["top10_biggest_uploaders"] = liste
+
+        # Total sent emails
+        res  = DB.query('select count(*) from email_logs;')
+        liste = []
+        res.each do |row|
+          liste << ["#{row.count}"]
+        end
+        hjson["total_sent_emails"] = liste
+
+        # top10 user invites
+        res  = DB.query('SELECT users.username, count(invites.invited_by_id) FROM invites, users WHERE invites.invited_by_id = users.id GROUP BY users.username ORDER BY count(invites.id) DESC LIMIT 10;')
+        liste = []
+        res.each do |row|
+          liste << ["#{row.username}", "#{row.count}".to_i]
+        end
+        hjson["top10_user_invites"] = liste
+
+        # top10 searchs
+        res  = DB.query('SELECT distinct search_logs.term, count(search_logs.term) AS count_search FROM search_logs GROUP BY search_logs.term ORDER BY count_search DESC LIMIT 10;')
+        liste = []
+        res.each do |row|
+          liste << ["#{row.term}", "#{row.count_search}".to_i]
+        end
+        hjson["top10_searchs"] = liste
+
         DiscourseDmon::DmonHelper.index_event_stats(hjson.to_json)
       end
     end
   end
 end
-
-
-# class ::Jobs::ExampleJob < Jobs::Scheduled
-#   every 60.seconds
-#
-#   def execute(args)
-#     puts "THIS IS A TEST"
-#   end
-# end
