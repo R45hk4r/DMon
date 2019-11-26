@@ -117,6 +117,14 @@ module Jobs
         end
         hjson["top10_searchs"] = liste
 
+        # top10 viewed page
+        res  = DB.query('SELECT topics.title, count(topic_views.topic_id) FROM topic_views, topics WHERE topic_views.topic_id = topics.id GROUP BY topics.title ORDER BY count(topic_views.topic_id) DESC LIMIT 10;')
+        liste = []
+        res.each do |row|
+          liste << ["#{row.title}", "#{row.count}".to_i]
+        end
+        hjson["top10_viewed_page"] = liste
+
         DiscourseDmon::DmonHelper.index_event_stats(hjson.to_json)
       end
     end
