@@ -81,7 +81,7 @@ module Jobs
         res  = DB.query('select count(*) from user_uploads;')
         liste = []
         res.each do |row|
-          liste << ["#{row.count}"]
+          liste << ["#{row.count}.to_i"]
         end
         hjson["total_user_uploads"] = liste
 
@@ -97,7 +97,7 @@ module Jobs
         res  = DB.query('select count(*) from email_logs;')
         liste = []
         res.each do |row|
-          liste << ["#{row.count}"]
+          liste << ["#{row.count}".to_i]
         end
         hjson["total_sent_emails"] = liste
 
